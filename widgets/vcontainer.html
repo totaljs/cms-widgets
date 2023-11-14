@@ -1,0 +1,48 @@
+<script total>
+	exports.id = 'vcontainer';
+	exports.name = 'Variable container';
+	exports.author = 'Total.js';
+	exports.version = '1';
+	exports.group = 'Content';
+	exports.config = { max: '70%', min: '350px' };
+	exports.preview = 'data:image/gif;base64,R0lGODdhLAHIANUAANjY2BSD//v9/w6A//P5/yGK/z6a/////wJ6/wd8/+32/9/u/wZ8/8Lf/wN6/5jJ//f7/4zC/4vC/zOU/zSU/2ux/wl9/+fy/5bI/xuH//7+/4C8/xqG/3a3//j7/yqP/wp+/6PO/63U/4G9/ymP/7ja/67U/2mw/+by/7fZ/6LO//3+/3W2/1Sl/83l/0mf/0if/16q/1+r/9fq/9bq/8zk/1Ok/wR7/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACwAAAAALAHIAAAG/8CDcEgsGo/IpHLJbDqf0Kh0Sq1ar9isdsvter/gsHhMLpvP6LR6zW673/C4fE6v2+/4vH7P7/v/gIGCg4SFhoeIiYqLjI2Oj5CRkpOUlZaXmJmam5ydnp+goaKjpKWmp6ipqqusra6vsLGys7S1tre4ubq7vL2+v8DBwsPExcbHyMnKnADNzs/Q0dLT1NXW19jZ2tjLXNvf4OHi4+TdW+To6err3OZZ7PDx8uHu7/P3+PnN9Vj6/v/q+F0BSLDgNoFWDCpcKA1hFYYQGTqkErFiwYlTLGr0h1HKxo/3OkYBSRKeSCglU6Y7+USlS3EsnbyceTAmE5o4r9m8mbNnw/+dSnwKfQY06NChRZMcRZr0yFKhTZ0+7RnVyFSqVYlczZlV61aaXYd8BRv2wNiZZc2edZl2LduyblW2jVtyLl2Qdu9uzKvXIt++Ef8Clgh3sN/ChgMjTkw4LGPFjh837ip5ctbKCwVj1qd5M77OnueBDh1vNGl2pk8HXKw6JOvW8lLDHid7Nr3XttfVzl0zMm+TuH+XM1bCgBfhwLkYKEFKgwkKCBAcR667S3QKJjR8EhDiQ/To06mvtP79QwgBmzw8KPD9e3jxw7m0j17ggYdLBCJkmO++C/zx8vGHQAYREDCJAiMEIGB/3vwX3xYLRhfACAo8ckEHA0TI4DkO0kb/noYDdHDBIgtUAIKG7b3X4TdeoPgdCBUscMgMMjDgYor+rXhbgDciwIAMMwziQgsO9NheAkgmqeSSTDaJpI7hOCnllEka+d0NLbjwRwMvWOnll1CC8+WYPb7QQB8NwEDmmhqG+Q2bcPIHw5l+1GBDkV5SqWeTbm6z559VeumADTUMQkMMNhqpYp/VtGgkAzHQcMgCJ1jQ46KMTuOoixacIKMiKLCQIYqYZhrNphEOwAIKjyiwgYIRlmoqUR8KGMAGFUpCgAQcLCjrrPvU2h4HEhhoCQQYsDffr8CiSh8GEGwigAok4NggsJrWSoIK6HmygggTgJcjtj8FOIEIK5CS3IJx45ILjRcGpHCMu+VSRu+7wZG7m5v7htkvlP/qGPCKA3dYsIMH/5cwfAuL1zB1DyMXsXAT/1YxbxfnlrFtG8/WMWwftxayaiOfVjJpJ4eWsmcrb9YyZi9XFrNkMz9WM2M3J5azYTsP1jNgP/cVtF5D31U0XUfHlbRbS6/V9FlPjxX1V1NvVfVVV0+V9VNbL9X1UV8z5du9wY5Ndlpop6322my37fbbcMct99x012333XjnrffefPft99+ABy744IQXbvjhiCeu+OKMN+7445BHLvnklFdu+eVZBAEAOw==';
+</script>
+
+<body>
+	<div class="CMS_widgets CMS_attribute" style="max-width:70%;min-width:350px"></div>
+</body>
+
+<style>
+	.CLASS > div { width: 100%; margin: 0 auto; }
+</style>
+
+<settings>
+
+	<div class="padding">
+		<ui-component name="configuration" path="?" class="invisible">
+			<script type="text/plain">
+				[
+					{
+						id: 'min',
+						name: 'Min. width',
+						summary: 'The value can contain a value defined in pixels or percentages. ',
+						type: 'string'
+					},
+					{
+						id: 'max',
+						name: 'Max. width',
+						summary: 'The value can contain a value defined in pixels or percentages. ',
+						type: 'string'
+					}
+				]
+			</script>
+		</ui-component>
+	</div>
+
+	<script>
+		exports.save = function(config, el) {
+			el.find('> div').css({ 'max-width': config.max, 'min-width': config.min });
+		};
+	</script>
+
+</settings>
