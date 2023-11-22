@@ -11,7 +11,7 @@
 	.CLASS ul { margin: 0; padding: 0; list-style-type: none; }
 	.CLASS li { display: block; padding: 6px 0; border-top: 1px solid #E0E0E0; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
 	.CLASS li:first-child { border-top: 0; padding-top: 0; }
-	.CLASS i { margin-right: 8px; color: #6EBC45; }
+	.CLASS-icon { margin-right: 8px; color: #6EBC45; }
 	.CLASS-large { font-size: 16px; }
 	.CLASS-large li { padding: 8px 0; }
 
@@ -48,10 +48,10 @@
 			var columns = el.find('.row').length > 0;
 			if (config.twocolumns) {
 				if (!columns)
-					el.html('<div class="row">{0}{0}</div>'.format('<div class="col-sm-6"><ul><li class="CMS_repeat"><i class="ti ti-check-circle CMS_edit"></i><span class="CMS_edit CMS_unwrap">Lorem Ipsum sodem</span></li></ul></div>'));
+					el.html('<div class="row">{0}{0}</div>'.format('<div class="col-sm-6"><ul><li class="CMS_repeat"><span class="CLASS-icon CMS_attribute"><i class="ti ti-check-circle CMS_edit"></i></span><span class="CMS_edit CMS_unwrap">Lorem Ipsum sodem</span></li></ul></div>'));
 			} else {
 				if (columns)
-					el.html('<ul><li class="CMS_repeat"><i class="ti ti-check-circle CMS_edit"></i><span class="CMS_edit CMS_unwrap">Lorem Ipsum sodem</span></li></ul>');
+					el.html('<ul><li class="CMS_repeat"><span class="CLASS-icon CMS_attribute"><i class="ti ti-check-circle CMS_edit"></i></span><span class="CMS_edit CMS_unwrap">Lorem Ipsum sodem</span></li></ul>');
 			}
 		};
 	</script>
@@ -60,11 +60,11 @@
 
 <body>
 	<ul>
-		<li class="CMS_repeat CMS_remove"><i class="ti ti-check-circle CMS_edit"></i><span class="CMS_edit CMS_unwrap">Lorem Ipsum sodem</span></li>
-		<li class="CMS_repeat CMS_remove"><i class="ti ti-check-circle CMS_edit"></i><span class="CMS_edit CMS_unwrap">Lorem Ipsum sodem</span></li>
-		<li class="CMS_repeat CMS_remove"><i class="ti ti-check-circle CMS_edit"></i><span class="CMS_edit CMS_unwrap">Lorem Ipsum sodem</span></li>
-		<li class="CMS_repeat CMS_remove"><i class="ti ti-check-circle CMS_edit"></i><span class="CMS_edit CMS_unwrap">Lorem Ipsum sodem</span></li>
-		<li class="CMS_repeat CMS_remove"><i class="ti ti-check-circle CMS_edit"></i><span class="CMS_edit CMS_unwrap">Lorem Ipsum sodem</span></li>
-		<li class="CMS_repeat CMS_remove"><i class="ti ti-check-circle CMS_edit"></i><span class="CMS_edit CMS_unwrap">Lorem Ipsum sodem</span></li>
+		<li class="CMS_repeat CMS_remove"><span class="CLASS-icon CMS_attribute"><i class="ti ti-check-circle CMS_edit"></i></span><span class="CMS_edit CMS_unwrap">Lorem Ipsum sodem</span></li>
+		<li class="CMS_repeat CMS_remove"><span class="CLASS-icon CMS_attribute"><i class="ti ti-check-circle CMS_edit"></i></span><span class="CMS_edit CMS_unwrap">Lorem Ipsum sodem</span></li>
+		<li class="CMS_repeat CMS_remove"><span class="CLASS-icon CMS_attribute"><i class="ti ti-check-circle CMS_edit"></i></span><span class="CMS_edit CMS_unwrap">Lorem Ipsum sodem</span></li>
+		<li class="CMS_repeat CMS_remove"><span class="CLASS-icon CMS_attribute"><i class="ti ti-check-circle CMS_edit"></i></span><span class="CMS_edit CMS_unwrap">Lorem Ipsum sodem</span></li>
+		<li class="CMS_repeat CMS_remove"><span class="CLASS-icon CMS_attribute"><i class="ti ti-check-circle CMS_edit"></i></span><span class="CMS_edit CMS_unwrap">Lorem Ipsum sodem</span></li>
+		<li class="CMS_repeat CMS_remove"><span class="CLASS-icon CMS_attribute"><i class="ti ti-check-circle CMS_edit"></i></span><span class="CMS_edit CMS_unwrap">Lorem Ipsum sodem</span></li>
 	</ul>
 </body>
