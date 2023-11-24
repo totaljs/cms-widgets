@@ -1,0 +1,139 @@
+<script total>
+
+	exports.id = 'gradient';
+	exports.name = 'Gradient';
+	exports.author = 'Total.js';
+	exports.version = '1';
+	exports.preview = 'data:image/jpeg;base64,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';
+	exports.config = { background: 'color1', rounded: true, padding: true };
+
+</script>
+
+<style>
+	.CLASS-radius { border-radius: var(--radius); }
+	.CLASS-color1 { background-color: #4158D0; background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%); }
+	.CLASS-color2 { background-color: #0093E9; background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%); }
+	.CLASS-color3 { background-color: #8EC5FC; background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%); }
+	.CLASS-color4 { background-color: #8EC5FC; background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%); }
+	.CLASS-color5 { background-color: #00DBDE; background-image: linear-gradient(90deg, #00DBDE 0%, #FC00FF 100%); }
+	.CLASS-color6 { background-color: #FBAB7E; background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%); }
+	.CLASS-color7 { background-color: #8BC6EC; background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%); }
+	.CLASS-color8 { background-color: #8BC6EC; background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%); }
+	.CLASS-color9 { background-color: #8BC6EC; background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%); }
+	.CLASS-color10 { background-color: #3EECAC; background-image: linear-gradient(19deg, #3EECAC 0%, #EE74E1 100%); }
+	.CLASS-color11 { background-color: #FFE53B; background-image: linear-gradient(147deg, #FFE53B 0%, #FF2525 74%); }
+	.CLASS-color12 { background-color: #8BC6EC; background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%); }
+	.CLASS-color13 { background-color: #74EBD5; background-image: linear-gradient(90deg, #74EBD5 0%, #9FACE6 100%); }
+	.CLASS-color14 { background-color: #FF3CAC; background-image: linear-gradient(225deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%); }
+	.CLASS-color15 { background-color: #FF3CAC; background-image: linear-gradient(225deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%); }
+	.CLASS-color16 { background-image: linear-gradient(111.4deg, rgba(238,113,113,1) 1%, rgba(246,215,148,1) 58%); }
+	.CLASS-color17 { background-image: linear-gradient(173.1deg, rgba(226,66,249,0.94) 10.2%, rgba(79,147,249,1) 77.3%); }
+	.CLASS-color18 { background-image: linear-gradient(108.7deg, rgba(221,22,224,1) 11%, rgba(111,22,190,1) 88.2%); }
+	.CLASS-color19 { background-image: radial-gradient(circle farthest-corner at 10% 20%, rgba(37,145,251,0.98) 0.1%, rgba(0,7,128,1) 99.8%); }
+	.CLASS-color20 { background-image: linear-gradient(109.6deg, rgba(255,179,189,1) 1.8%, rgba(254,248,154,1) 50.6%, rgba(161,224,186,1) 100.3%); }
+	.CLASS-color21 { background-image: radial-gradient(circle 874px at 9.8% 8%, rgba(255,20,175,1) 0%, rgba(22,22,22,1) 58.4%); }
+	.CLASS-color22 { background-image: radial-gradient(circle farthest-corner at -4.5% 34.3%, rgba(13,20,174,1) 0%, rgba(243,165,140,1) 90%); }
+	.CLASS-color23 { background-image: linear-gradient(89.9deg, rgba(255,243,110,1) 16.9%, rgba(30,204,214,1) 55.1%, rgba(5,54,154,1) 90.7%); }
+	.CLASS-color24 { background-image: linear-gradient(103.3deg, rgba(252,225,208,1) 30%, rgba(255,173,214,1) 55.7%, rgba(162,186,245,1) 81.8%); }
+	.CLASS-color25 { background-image: linear-gradient( 69.7deg, rgba(244,37,243,1) 1.4%, rgba(244,87,1,1) 36.2%, rgba(255,204,37,1) 72.2%, rgba(20,196,6,1) 113%); }
+	.CLASS-color26 { background-image: linear-gradient( 65.9deg, rgba(85,228,224,1) 5.5%, rgba(75,68,224,0.74) 54.2%, rgba(64,198,238,1) 55.2%, rgba(177,36,224,1) 98.4%); }
+	.CLASS-color27 { background-image: linear-gradient( 97.3deg, rgba(25,50,70,0.81) 10.7%, rgba(155,65,25,0.72) 39.5%, rgba(255,192,0,0.81) 69.7%); }
+	.CLASS-color28 { background-image: linear-gradient( 111.5deg, rgba(254,210,255,1) -7.2%, rgba(115,9,112,1) 100.2%); }
+	.CLASS-color29 { background-image: linear-gradient( 76.9deg, rgba(255,90,90,1) 27.2%, rgba(130,5,255,1) 79.9%); }
+	.CLASS-color30 { background-image: linear-gradient( 109.6deg, rgba(255,24,134,1) 11.2%, rgba(252,232,68,1) 52%, rgba(53,178,239,1) 100.2%); }
+</style>
+
+<settings>
+
+	<style>
+		.CLASS-settings .ui-choose > div { position: relative; display: inline-block; margin: 0 10px 10px 0; border: 2px solid #E0E0E0; padding: 2px; border-radius: var(--radius); cursor: pointer; }
+		.CLASS-settings .ui-choose > div > div { width: 54px; height: 54px; border-radius: var(--radius); }
+		.CLASS-settings .ui-choose > div.selected { border-color: var(--color); }
+		.CLASS-settings .color1 { background-color: #4158D0; background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%); }
+		.CLASS-settings .color2 { background-color: #0093E9; background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%); }
+		.CLASS-settings .color3 { background-color: #8EC5FC; background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%); }
+		.CLASS-settings .color4 { background-color: #8EC5FC; background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%); }
+		.CLASS-settings .color5 { background-color: #00DBDE; background-image: linear-gradient(90deg, #00DBDE 0%, #FC00FF 100%); }
+		.CLASS-settings .color6 { background-color: #FBAB7E; background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%); }
+		.CLASS-settings .color7 { background-color: #8BC6EC; background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%); }
+		.CLASS-settings .color8 { background-color: #8BC6EC; background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%); }
+		.CLASS-settings .color9 { background-color: #8BC6EC; background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%); }
+		.CLASS-settings .color10 { background-color: #3EECAC; background-image: linear-gradient(19deg, #3EECAC 0%, #EE74E1 100%); }
+		.CLASS-settings .color11 { background-color: #FFE53B; background-image: linear-gradient(147deg, #FFE53B 0%, #FF2525 74%); }
+		.CLASS-settings .color12 { background-color: #8BC6EC; background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%); }
+		.CLASS-settings .color13 { background-color: #74EBD5; background-image: linear-gradient(90deg, #74EBD5 0%, #9FACE6 100%); }
+		.CLASS-settings .color14 { background-color: #FF3CAC; background-image: linear-gradient(225deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%); }
+		.CLASS-settings .color15 { background-color: #FF3CAC; background-image: linear-gradient(225deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%); }
+		.CLASS-settings .color16 { background-image: linear-gradient(111.4deg, rgba(238,113,113,1) 1%, rgba(246,215,148,1) 58%); }
+		.CLASS-settings .color17 { background-image: linear-gradient(173.1deg, rgba(226,66,249,0.94) 10.2%, rgba(79,147,249,1) 77.3%); }
+		.CLASS-settings .color18 { background-image: linear-gradient(108.7deg, rgba(221,22,224,1) 11%, rgba(111,22,190,1) 88.2%); }
+		.CLASS-settings .color19 { background-image: radial-gradient(circle farthest-corner at 10% 20%, rgba(37,145,251,0.98) 0.1%, rgba(0,7,128,1) 99.8%); }
+		.CLASS-settings .color20 { background-image: linear-gradient(109.6deg, rgba(255,179,189,1) 1.8%, rgba(254,248,154,1) 50.6%, rgba(161,224,186,1) 100.3%); }
+		.CLASS-settings .color21 { background-image: radial-gradient(circle 874px at 9.8% 8%, rgba(255,20,175,1) 0%, rgba(22,22,22,1) 58.4%); }
+		.CLASS-settings .color22 { background-image: radial-gradient(circle farthest-corner at -4.5% 34.3%, rgba(13,20,174,1) 0%, rgba(243,165,140,1) 90%); }
+		.CLASS-settings .color23 { background-image: linear-gradient(89.9deg, rgba(255,243,110,1) 16.9%, rgba(30,204,214,1) 55.1%, rgba(5,54,154,1) 90.7%); }
+		.CLASS-settings .color24 { background-image: linear-gradient(103.3deg, rgba(252,225,208,1) 30%, rgba(255,173,214,1) 55.7%, rgba(162,186,245,1) 81.8%); }
+		.CLASS-settings .color25 { background-image: linear-gradient( 69.7deg, rgba(244,37,243,1) 1.4%, rgba(244,87,1,1) 36.2%, rgba(255,204,37,1) 72.2%, rgba(20,196,6,1) 113%); }
+		.CLASS-settings .color26 { background-image: linear-gradient( 65.9deg, rgba(85,228,224,1) 5.5%, rgba(75,68,224,0.74) 54.2%, rgba(64,198,238,1) 55.2%, rgba(177,36,224,1) 98.4%); }
+		.CLASS-settings .color27 { background-image: linear-gradient( 97.3deg, rgba(25,50,70,0.81) 10.7%, rgba(155,65,25,0.72) 39.5%, rgba(255,192,0,0.81) 69.7%); }
+		.CLASS-settings .color28 { background-image: linear-gradient( 111.5deg, rgba(254,210,255,1) -7.2%, rgba(115,9,112,1) 100.2%); }
+		.CLASS-settings .color29 { background-image: linear-gradient( 76.9deg, rgba(255,90,90,1) 27.2%, rgba(130,5,255,1) 79.9%); }
+		.CLASS-settings .color30 { background-image: linear-gradient( 109.6deg, rgba(255,24,134,1) 11.2%, rgba(252,232,68,1) 52%, rgba(53,178,239,1) 100.2%); }
+	</style>
+
+	<div class="padding CLASS-settings">
+		<div class="m">
+			<ui-component name="input" path="?.rounded" config="type:checkbox">Rounded</ui-component>
+			<ui-component name="input" path="?.padding" config="type:checkbox">Padding</ui-component>
+		</div>
+		<p>Choose a gradient swatch:</p>
+		<ui-component name="choose" path="?.background" config="selector:div" class="CLASS-settings">
+			<div data-id="color1"><div class="color1"></div></div>
+			<div data-id="color2"><div class="color2"></div></div>
+			<div data-id="color3"><div class="color3"></div></div>
+			<div data-id="color4"><div class="color4"></div></div>
+			<div data-id="color5"><div class="color5"></div></div>
+			<div data-id="color6"><div class="color6"></div></div>
+			<div data-id="color7"><div class="color7"></div></div>
+			<div data-id="color8"><div class="color8"></div></div>
+			<div data-id="color9"><div class="color9"></div></div>
+			<div data-id="color10"><div class="color10"></div></div>
+			<div data-id="color10"><div class="color10"></div></div>
+			<div data-id="color11"><div class="color11"></div></div>
+			<div data-id="color12"><div class="color12"></div></div>
+			<div data-id="color13"><div class="color13"></div></div>
+			<div data-id="color14"><div class="color14"></div></div>
+			<div data-id="color15"><div class="color15"></div></div>
+			<div data-id="color16"><div class="color16"></div></div>
+			<div data-id="color17"><div class="color17"></div></div>
+			<div data-id="color18"><div class="color18"></div></div>
+			<div data-id="color19"><div class="color19"></div></div>
+			<div data-id="color20"><div class="color20"></div></div>
+			<div data-id="color21"><div class="color21"></div></div>
+			<div data-id="color22"><div class="color22"></div></div>
+			<div data-id="color23"><div class="color23"></div></div>
+			<div data-id="color24"><div class="color24"></div></div>
+			<div data-id="color25"><div class="color25"></div></div>
+			<div data-id="color26"><div class="color26"></div></div>
+			<div data-id="color27"><div class="color27"></div></div>
+			<div data-id="color28"><div class="color28"></div></div>
+			<div data-id="color29"><div class="color29"></div></div>
+			<div data-id="color30"><div class="color30"></div></div>
+		</ui-component>
+	</div>
+
+	<script>
+
+		exports.save = function(config, el) {
+			el.find('> div:first-child').rclass2('CLASS-color').aclass('CLASS-' + config.background).tclass('CLASS-radius', config.rounded).tclass('padding', config.padding);
+		};
+
+	</script>
+
+</settings>
+
+<body>
+	<div class="CLASS-radius CLASS-color1 padding">
+		<div class="CMS_widgets"></div>
+	</div>
+</body>
