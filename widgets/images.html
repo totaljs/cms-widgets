@@ -29,9 +29,11 @@
 			if (config.links) {
 				if (!links.length)
 					el.find('img').wrap('<a href="/" class="CMS_edit"></a>');
+				el.find('img').rclass('img-viewer');
 			} else {
 				if (links.length)
 					el.find('img').unwrap('a');
+				el.find('img').aclass('img-viewer');
 			}
 		};
 	</script>
@@ -41,26 +43,26 @@
 <body>
 	<div class="row CMS_remove CMS_repeat">
 		<div class="col-xs-12 CLASS-image">
-			<img class="img-responsive CMS_edit" alt="" border="0" data-cms-width="1920" data-cms-height="1080" />
+			<img class="img-responsive img-viewer CMS_edit" alt="" border="0" data-cms-width="1920" data-cms-height="1080" />
 		</div>
 	</div>
 	<div class="row CMS_remove CMS_repeat">
 		<div class="col-sm-6 CLASS-image">
-			<img class="img-responsive CMS_edit" alt="" border="0" data-cms-width="1920" data-cms-height="1080" />
+			<img class="img-responsive img-viewer CMS_edit" alt="" border="0" data-cms-width="1920" data-cms-height="1080" />
 		</div>
 		<div class="col-sm-6 CLASS-image">
-			<img class="img-responsive CMS_edit" alt="" border="0" data-cms-width="1920" data-cms-height="1080" />
+			<img class="img-responsive img-viewer CMS_edit" alt="" border="0" data-cms-width="1920" data-cms-height="1080" />
 		</div>
 	</div>
 	<div class="row CMS_remove CMS_repeat">
 		<div class="col-sm-4 CLASS-image">
-			<img class="img-responsive CMS_edit" alt="" border="0" data-cms-width="1920" data-cms-height="1080" />
+			<img class="img-responsive img-viewer CMS_edit" alt="" border="0" data-cms-width="1920" data-cms-height="1080" />
 		</div>
 		<div class="col-sm-4 CLASS-image">
-			<img class="img-responsive CMS_edit" alt="" border="0" data-cms-width="1920" data-cms-height="1080" />
+			<img class="img-responsive img-viewer CMS_edit" alt="" border="0" data-cms-width="1920" data-cms-height="1080" />
 		</div>
 		<div class="col-sm-4 CLASS-image">
-			<img class="img-responsive CMS_edit" alt="" border="0" data-cms-width="1920" data-cms-height="1080" />
+			<img class="img-responsive img-viewer CMS_edit" alt="" border="0" data-cms-width="1920" data-cms-height="1080" />
 		</div>
 	</div>
 </body>

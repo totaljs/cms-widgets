@@ -26,9 +26,11 @@
 			if (config.link) {
 				if (!link.length)
 					el.find('img').wrap('<a href="/" class="CMS_edit"></a>');
+				el.find('img').rclass('img-viewer');
 			} else {
 				if (link.length)
 					el.find('img').unwrap('a');
+				el.find('img').aclass('img-viewer');
 			}
 
 			el.find('img').tclass('img-rounded', config.rounded);
@@ -38,5 +40,5 @@
 </settings>
 
 <body>
-	<div class="CLASS-image"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABQAAAAGQAQMAAADLA1/kAAAAA1BMVEXMzMzKUkQnAAAAVUlEQVR4Ae3BAQEAAAQDMP1TiwHfVgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAArNb7kAABZyUYdQAAAABJRU5ErkJggg==" class="CMS_edit img-responsive" border="0" alt="" /></div>
+	<div class="CLASS-image"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABQAAAAGQAQMAAADLA1/kAAAAA1BMVEXMzMzKUkQnAAAAVUlEQVR4Ae3BAQEAAAQDMP1TiwHfVgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAArNb7kAABZyUYdQAAAABJRU5ErkJggg==" class="CMS_edit img-responsive img-viewer" border="0" alt="" /></div>
 </body>
