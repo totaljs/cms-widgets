@@ -1,0 +1,39 @@
+<script total>
+
+	exports.id = 'box';
+	exports.name = 'Box';
+	exports.author = 'Total.js';
+	exports.version = '1';
+	exports.preview = 'data:image/gif;base64,R0lGODdhLAHIALMAAP///+Xl5efn5+/v7+rq6vv7+/7+/vb29vHx8ebm5vr6+gAAAAAAAAAAAAAAAAAAACwAAAAALAHIAAAE/xDISau9OOvNu/9gKI5kaZ5oqq5s675wLM90bd94ru987//AoHBILBqPyKRyyWw6n9CodEqtWq/YrHbL7Xq/4LB4TC6bz+i0es1uu9/wuHxOr9vv+Lx+z+/7/4CBgoOEhYaHiImKi4yNjo8vBgcDBAIBl5iZmpucnZ6foKGio6SlpqcCBAMHBoUFAwmnsrO0tba3uJwJAwWBBgi5wcLDxMWjCK19BQTGzc7P0KYEvXsKltHY2drOAgp6Bdfb4uPksgLUdgbM5ezt7psEyXXA7/X25Ah2Bff8/djocgb4G0hw2AA6BmIVXMhQVgJ5cA40nEhR1IE5Aitq3IjpoJx1HP9DTiQwJ5zIkwQFzEHJsuDKljD5vYxJ093MmjjH3czJE9vOnkCb/QxKVNjQokhtHU3K9NTSplBFPY1KtdPUqlgxXc2KdStXql6/Qg0rlinZskjPoiWqdi3Qtm55wo2Lcy5dmnbvwsyrlyXfvif/Ag4pePDGwoYrIk48cTFjho4fu5QjOWnkyv4uY5ZJeXNQzZ7rgQ5tszPpnKNPl0utWqfp1jFZw9Yme7bP17ZR1s79bDdvobh/c/QtnBjx4kaDI6d4fDmu5s6VKo++EDr1WdavO52uPTP37pzjgG+YfbzU7+bflU//aT17q+jfr44v37X4+uHh4M//Zv899/4FAKD/fwPuVyB+B9aXoHwLvtcgew+mF6F5E45XIXgXdpehdhte1yF1H0YXonMjLlcicicWl6JwK/7WIm8v5hajbTPOViNsN7aWo2o7ntYjaT+GFqRnQ25WJGZHVpakZEs+1iRjTyYWpWFTDlYlYFf2laVeW97VJV1fxhWmWyUF6I5KH5nZDkkBqcmOR3FI5CY5F8mR0JziPERHRnhmA6cc+/SZDUBy0CPoM/mkA9KhxcSDBziMFnOOHtZEKkw3fCxjKS7T+PHLprUgE8grCoEqyi6EAiIJJSaZekkqq0AEyay01mrrrbjmquuuvPbq66/ABivssMQWa+yxyCar7LLMNuvsHrPQRivttNRWa+212Gar7bbcduvtt+CGK+645BYRAQA7';
+	exports.config = { rounded: true, padding: true };
+
+</script>
+
+<style>
+	.CLASS-radius { border-radius: var(--radius); }
+</style>
+
+<settings>
+
+	<div class="padding CLASS-settings">
+		<div class="m">
+			<ui-component name="input" path="?.rounded" config="type:checkbox">Rounded</ui-component>
+			<ui-component name="input" path="?.padding" config="type:checkbox">Padding</ui-component>
+		</div>
+	</div>
+
+	<script>
+
+		exports.save = function(config, el) {
+			el.find('> div:first-child').tclass('CLASS-radius', config.rounded).tclass('padding', config.padding);
+		};
+
+	</script>
+
+</settings>
+
+<body>
+	<div class="CLASS-radius padding CMS_attribute" style="background:#F0F0F0">
+		<div class="CMS_widgets"></div>
+	</div>
+</body>
