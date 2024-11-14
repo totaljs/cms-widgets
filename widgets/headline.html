@@ -30,7 +30,7 @@
 						id: 'align',
 						name: 'Align',
 						type: 'dropdown',
-						items: [{ id: 'left', name: 'Left' }, { id: 'center', name: 'Center' }, { id: 'right', name: 'Right' }]
+						items: [{ id: 'left', name: 'Left' }, { id: 'center', name: 'Center' }, { id: 'right', name: 'Right' }, { id: 'justify', name: 'Justify' }]
 					},
 					{
 						id: 'maxwidth',
@@ -54,6 +54,7 @@
 					break;
 				case 'right':
 				case 'center':
+				case 'justify':
 					el.rclass2('CLASS-align-').aclass('CLASS-align-' + config.align);
 					break;
 			}
