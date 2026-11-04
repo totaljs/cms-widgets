@@ -1,0 +1,305 @@
+# Total.js CMS Widgets
+
+---
+
+Source: AGENTS.md
+
+# CMS widget authoring
+
+Create Total.js CMS widgets from a description. Each deliverable is a single `widgets/<id>.html` file in the existing repository format. Keep existing widgets, `db.js`, README and license unchanged unless the user explicitly includes them in the task.
+
+## Start here
+
+- [docs/ai.md](docs/ai.md): commands and entry points.
+- [docs/format.md](docs/format.md): sections, metadata, settings and CSS scope.
+- [docs/api.md](docs/api.md): editor hooks, rendering and content markers.
+- [docs/workflow.md](docs/workflow.md): creation and review.
+- [docs/testing.md](docs/testing.md): checks and CMS verification.
+- [docs/sources.md](docs/sources.md): authoritative implementation and compatibility.
+
+Read the nearest existing widget before writing one. Use `examples/notice.html` for a configurable content widget, `examples/insetpanel.html` for a container, and `examples/statusmessage.html` for server rendering. Examples are outside the published `widgets/` catalogue.
+
+## Rules
+
+- Plain JavaScript: `var`, `function`, tabs, semicolons and single quotes. Preserve native CMS HTML sections; do not wrap a widget in a full web page or a `COMPONENT()` registration.
+- Use `<script total>` for metadata/server hooks and `<settings><script>` for editor hooks. They run in different environments.
+- New ids are lowercase letters/digits, begin with a letter, and match the filename. Check both ids and names in `widgets/` before choosing one. Do not rename existing widgets.
+- Scope widget CSS with `.CLASS` or `.CLASS-...`. `CLASS` becomes a class for the widget type, shared by all its instances. Use the `el` argument to change one instance.
+- Preserve user-edited content when settings change. Call hooks repeatedly and verify two instances. Do not put instance data in module globals or fixed DOM ids.
+- Settings use `?.key` paths and matching defaults in `exports.config`. Document each option and allowed values in `<readme>`.
+- The reference CMS admin loads jComponent v19. Match the consuming CMS; do not introduce v20-only controls. CMS-provided controls are listed in `docs/api.md`.
+- Use native Total.js APIs in server hooks. Encode untrusted text with `.encode()` and use `.text()` in editor hooks; validate URLs and finite option values before using them in HTML or CSS. Cache rendered output only when sharing it is correct.
+- Use semantic, accessible HTML and responsive CSS. Keep the visitor content editable with the CMS markers appropriate to the widget. Do not mark public content as translated admin interface text.
+- Do not commit credentials, generated catalogues, node_modules or package-lock.json. No dependency is needed by a widget unless its actual behavior requires one.
+
+## Verification
+
+```sh
+node tools/check.js examples/notice.html
+node tools/check.js widgets/newwidget.html --cms ../cms
+node tools/browser.js examples/notice.html
+node test.js
+node tools/llms.js --check
+```
+
+Install Total.js locally with `npm i total5 playwright --no-save --package-lock=false`. Tests use the native `total5/test` runner; tools use `Total.Fs`, `Total.Path` and other exposed modules. Browser checks need Playwright and Chrome/Chromium; see `docs/testing.md`. Run the widget in the actual CMS editor and on a published page before claiming CMS integration. Report skipped checks explicitly. Instructions and tooling do not grant permission to publish or modify other repositories.
+
+---
+
+Source: docs/ai.md
+
+# AI authoring kit
+
+Start with [AGENTS.md](../AGENTS.md). The kit teaches the existing CMS widget format and provides examples and checks. It adds no application runtime or service.
+
+| Resource | Purpose |
+| --- | --- |
+| [Format](format.md) | Sections, metadata, scoping and configuration |
+| [API](api.md) | Editor markers, hooks and server rendering |
+| [Workflow](workflow.md) | Turn a description into a working widget |
+| [Testing](testing.md) | Commands, limitations and integration checks |
+| [Sources](sources.md) | Implementation references and runtime compatibility |
+| [llms.txt](../llms.txt) | Documentation index |
+| [llms-full.txt](../llms-full.txt) | Documentation in one file |
+
+Codex discovers `AGENTS.md` and `.agents/skills/`. Claude Code has `CLAUDE.md` and matching skill entry points in `.claude/skills/`. Gemini and Copilot have pointers to the same rules. Shared workflows are maintained in `.agents/skills/`.
+
+- `cms-widget-create`: create a single-file widget with settings and editable content.
+- `cms-widget-review`: review or correct a widget and verify its editor/public behavior.
+
+An assistant reading a remote repository can begin at `llms.txt`. A local assistant should run checks from the repository root. These files guide an assistant; they cannot guarantee its output without execution and review.
+
+---
+
+Source: docs/format.md
+
+# Widget format
+
+A widget is `widgets/<id>.html`. It is a CMS source document, not a standalone HTML page. Keep the existing catalogue format. A widget does not require separate CSS, JavaScript, README or preview files.
+
+| Section | Environment and purpose |
+| --- | --- |
+| `<script total>` | Metadata and optional server hooks |
+| `<style>` | Widget CSS |
+| `<settings>` | Editor configuration UI; may contain its own `<style>` and `<script>` |
+| `<body>` | Initial editable content |
+| `<script>` | Optional public browser code outside settings/body |
+| `<template>` | Optional template made available to the render hook |
+| `<readme>` | Purpose, options, dependencies and verification notes |
+
+Use exact lowercase opening tags; the CMS parser looks for those strings. Keep one of each outer section, and put settings before outer style/script sections: the parser extracts settings first, then other sections, so nested blocks must remain inside settings. A literal closing script tag inside JavaScript strings can end a section early: split the string if needed.
+
+## Metadata
+
+```js
+exports.id = 'notice';
+exports.name = 'Notice';
+exports.author = 'Your author name';
+exports.version = '1';
+exports.preview = 'data:image/png;base64,...';
+exports.config = { align: 'left' };
+```
+
+Use the actual author supplied for the widget. The metadata values `id`, `name`, `author`, `version`, `preview` follow the existing catalogue. The preview is an embedded image shown in the widget picker. Generate a screenshot with `tools/browser.js --preview`; no separate image is added to the catalogue. The database builder derives the catalogue id from the filename, so it must match `exports.id`.
+
+`exports.config` is optional for a widget without settings. Defaults must agree with initial body classes/content. Use plain serializable values. An optional `exports.dependencies` accepts URLs as an array (the CMS also accepts a comma/semicolon-separated string). Declare only actual dependencies. A dependency that requires configuration or ordering must be verified on the consuming site.
+
+## CSS and instances
+
+The CMS derives `w-<normalized-id>` from `exports.id` and substitutes `CLASS` in CSS, settings, template, public JS and body. For example `.CLASS-title` becomes `.w-notice-title`. All instances of that widget type share this prefix: it is not an instance identifier.
+
+Use `.CLASS ...` for descendants and `.CLASS-...` for widget-owned sub-elements. The CMS inserts a wrapper with the widget class. Do not add global `body`, `p` or `a` rules. Settings styles should be rooted in `.CLASS-settings`, not affect the entire admin.
+
+The `<script total>` code is evaluated before substitution and is not rewritten. A server hook must not return unresolved `CLASS` strings; reuse `opt.html` or emit markup using known classes explicitly. The static checker cannot prove every CSS selector is safe: inspect complex selectors, keyframes and external styles manually.
+
+## Settings
+
+Use the CMS input/configuration components and `?.key`, for example `<ui-component name="input" path="?.align" config="dirsource:left|Left,center|Center,right|Right">Align</ui-component>`. Use the closest existing widget as the control reference; the main admin uses jComponent v19.
+
+`exports.save(config, el)` changes only `el` and its descendants. Clear old state classes before adding new ones and validate dropdown values even when the UI restricts them. Do not replace the whole body to apply a cosmetic setting: it would discard edited content, repeated blocks and nested widgets. See [API](api.md).
+
+---
+
+Source: docs/api.md
+
+# CMS widget API
+
+This is the contract used by the reference CMS and Framework 5 sources listed in [Sources](sources.md). Verify the consuming CMS when using another version.
+
+## Editable content markers
+
+| Class | Editor behavior |
+| --- | --- |
+| `CMS_edit` | Editable text, link, image or icon, according to the element |
+| `CMS_remove` | Element can be removed |
+| `CMS_repeat` | Element can be repeated/reordered |
+| `CMS_widgets` | Container for nested widgets |
+| `CMS_attribute` | Element exposes attribute editing |
+| `CMS_unwrap` | Editor can unwrap the element |
+| `CMS_search` | Include the content in editor search |
+
+Markers belong to appropriate elements, not indiscriminately on the wrapper. Use semantic headings, lists, links and buttons. Images need meaningful alt text or an empty alt for decoration. Do not place a button inside a link. A nested `CMS_widgets` slot must survive repeated settings saves.
+
+## Editor hooks
+
+Inside the `<script>` in `<settings>`:
+
+```js
+exports.check = function(config, el) { };
+exports.load = function(config, el) { };
+exports.save = function(config, el) { };
+```
+
+- `check` runs when the editor checks an instance, including after insertion.
+- `load` runs when opening settings; it can read instance state into config.
+- `save` runs when settings are saved; it applies configuration to that instance.
+
+Hooks are optional. `el` is a jQuery-style wrapper for the widget instance. Use `el.find()`, `.text()`, `.css()`, `.attr()` and the native `.aclass()`, `.rclass2()` and `.tclass()` patterns found in existing widgets. CMS controls use `ui-component` and model paths under `?`; the editor handles storing the configuration. Do not create a separate store or session.
+
+The reference CMS loads `input`, `configuration`, `choose`, `colorpicker`, `icons`, `keyvalue` and other controls in `definitions/init.js`. A control absent there is not automatically available: verify and declare the dependency instead of assuming it exists. Settings may use normal HTML and the CMS's existing spacing/grid classes.
+
+## Server hooks
+
+Inside `<script total>`:
+
+```js
+exports.install = function(db) { };
+exports.uninstall = function(db) { };
+exports.render = function(opt, next) {
+	next(opt.html);
+};
+```
+
+Install/uninstall are optional CMS lifecycle hooks receiving the CMS database object. Do not call them from a static check: they can schedule work or mutate state. A widget with background resources must release them in uninstall and tolerate reloads.
+
+`render` is optional: static widgets publish their stored edited body without it. For dynamic widgets:
+
+| Value | Meaning |
+| --- | --- |
+| `opt.config` | Configuration stored on this widget instance |
+| `opt.id` | Instance identifier during rendering |
+| `opt.widget` | Widget type id |
+| `opt.html` | Inner HTML of this instance |
+| `opt.body` | Whole instance body including its wrapper |
+| `opt.template` | Extracted template body |
+| `opt.url`, `opt.vars`, `opt.controller` | Page context supplied by the caller |
+| `opt.user` | Optional user context; not guaranteed |
+
+`next(content, replace, cache)` completes rendering. Call it exactly once on every success, empty and error path. Content is HTML. `replace: true` removes the outer wrapper as well; the default preserves it. `cache: true` reuses rendered content; do not use it for user-specific or changing content without understanding the CMS cache scope and invalidation.
+
+The compiler does not merge `exports.config` into every incoming render config. Treat missing fields defensively, especially for pages saved before an option was added. Server hooks have Total.js globals; browser hooks do not. Use `.encode()` for text inserted into server HTML and `.text()` for text in editor DOM. Restrict URL schemes before inserting links or fetching remote resources. Use timeouts and an explicit fallback for remote requests; do not contact live providers in unit tests.
+
+An outer `<script>` is public browser JavaScript, not an editor hook. It may run without the admin UI library. Do not assume `$`, `COMPONENT`, admin models or editor globals are available on every published layout.
+
+---
+
+Source: docs/workflow.md
+
+# Create and review a widget
+
+1. Inspect `widgets/` for a matching purpose, id and visual pattern. Read [Format](format.md) and [API](api.md). Check the actual consuming CMS runtime before adding a control or API.
+2. Define a short contract: purpose, editable content, defaults, valid values, nested slots, dependencies and whether server rendering is needed. Keep it in `<readme>`. Ask only when a missing requirement changes behavior.
+3. Start from the smallest matching example: [notice](../examples/notice.html), [container](../examples/insetpanel.html) or [server rendering](../examples/statusmessage.html). Keep only the sections and hooks the widget needs.
+4. Write a new `widgets/<id>.html`. Preserve catalogue files already present. Match metadata, filename, CSS, defaults and settings. Use editor markers to retain visitor content editing.
+5. Validate metadata/sections/JavaScript and the settings paths with `node tools/check.js widgets/<id>.html`. See [Testing](testing.md) for framework, browser and actual CMS checks.
+6. Exercise every option, repeated saves, edited text, repeat/remove, nested content, empty/long values, hostile text and two differently configured instances. Verify desktop/mobile and the published page. Generate an embedded preview of the final appearance.
+7. Report the new file and what was verified. Do not call an isolated browser check a full CMS editor integration test.
+
+When reviewing, first reproduce the reported issue and check the existing contract. Correct only the requested behavior. Preserve saved configuration keys, widget id and editable content. A legacy catalogue warning is not permission to rewrite that widget. Add a focused regression check for a behavioral bug rather than a test that merely repeats implementation text.
+
+---
+
+Source: docs/testing.md
+
+# Verification
+
+Run commands from the repository root with Node.js 20 or newer. These are development tools; they are not copied into a CMS site.
+
+## Setup
+
+```sh
+npm i total5 playwright --no-save --package-lock=false
+npx playwright install chromium
+```
+
+Tests load `total5` and `total5/test` directly. Tools also load `total5` directly and use the framework-exposed modules. A missing dependency is a setup error. The suite uses `Test.push()`, `Test.print()` and `Test.run()`.
+
+## Static and native checks
+
+```sh
+node tools/check.js examples/notice.html
+node tools/check.js widgets/newwidget.html --cms ../cms
+node tools/check.js widgets --legacy
+node test.js
+node tools/llms.js --check
+node tools/llms.js --write
+```
+
+The checker uses Total.js `String.parseComponent()` with the section order of `FUNC.recompile()`. It compiles scripts, reads metadata, checks required fields, filename/id, duplicate catalogue ids, preview images, configuration paths/defaults and embedded option documentation. It reports suspicious global CSS and instance ids. `--legacy` reports new authoring conventions as warnings; syntax and missing required sections still fail. It never edits catalogue files or runs install/uninstall/render hooks.
+
+`--cms <source-url|checkout>` additionally runs that checkout's actual `FUNC.recompile()` in an isolated process and checks the parsed/scoped result. This does not start the CMS or access its storage. The CMS source URL is trusted executable code; the default is pinned to the revision in `tests/config`. Both native checks evaluate trusted `<script total>` code, just as importing it into CMS does. Do not use them for untrusted downloads.
+
+Kit tests include malformed sections/JavaScript, duplicate ids, filename mismatch, unknown settings keys, undocumented options, non-object configuration, ids matching object property names, non-image previews and out-of-scope CSS. Native tests exercise example parsing and Framework 5 rendering, including hostile text and two separate configurations. Browser tests exercise settings hooks separately from the full CMS application.
+
+## Test configuration
+
+`tests/config` contains the two sources used for integration checks:
+
+- `cms`: the CMS compiler source on GitHub, pinned to a specific commit.
+- `spa`: the official `https://cdn.componentator.com/spa.min@19.js` bundle.
+
+The runner reads them with `LOADCONFIG()`. `node test.js` runs all groups with these defaults and requires network access. Download failures fail the requested check; they do not silently switch sources. No database or CMS storage is accessed.
+
+A local CMS checkout or compiler file and a downloaded UI bundle can be selected for offline checks:
+
+```sh
+node test.js --cms ../cms --spa /path/to/spa.min@19.js
+```
+
+Playwright uses its installed Chromium by default. `--channel chrome` optionally selects an installed Google Chrome instead; it is not a CMS setting. Clearing either source in `tests/config` explicitly disables its integration group, which is reported as skipped. `--browser` requires the browser check even when spa is blank.
+
+## Browser smoke test and preview
+
+```sh
+npm i total5 playwright --no-save --package-lock=false
+npx playwright install chromium
+node tools/browser.js examples/notice.html
+node tools/browser.js widgets/newwidget.html --preview
+```
+
+The browser tool reads `spa` from `tests/config`; `--spa <url|file>` overrides it. It downloads the bundle with native `RESTBuilder`, then injects it into an isolated page. Other page network requests are blocked. The selected bundle must match the consuming CMS. Use `--channel chrome` for installed Chrome instead of Playwright Chromium.
+
+The tool mounts two wrappers, runs settings check/load/save hooks with the real UI library, preserves editable/nested content, repeats saves, and checks mobile/desktop overflow and browser exceptions. It does not load external widget dependencies, mount CMS settings components or run public scripts; those require actual CMS verification. Preview generation embeds a PNG screenshot into `exports.preview` of the explicitly selected file only. Commit that image only when it matches the final widget.
+
+## Actual CMS verification
+
+In a disposable local CMS, import the new widget through Widgets. Add two instances to a page, open its settings and exercise each control. Edit content, repeat/remove elements where offered, save settings twice, save/reopen the page and check persisted configuration and content. For containers, insert a nested widget and confirm it survives. Verify a published page at desktop and mobile widths, including links, images, keyboard operation and public JS. For dynamic widgets, check error/empty cases and cache behavior with representative data.
+
+Never use production storage for verification. The kit does not start, clear or populate the CMS. Report actual CMS checks separately from static/native/browser results.
+
+---
+
+Source: docs/sources.md
+
+# Implementation references
+
+The kit follows the existing widget format. This reference was checked against the following source revisions; verify another consuming CMS rather than assuming compatibility.
+
+| Source | Revision | Contract |
+| --- | --- | --- |
+| [cms-widgets](https://github.com/totaljs/cms-widgets) | `dc92cb7f40cb782c80af0a2cf0f9dcf9f92c8963` | Existing catalogue and `db.js` metadata extraction |
+| [CMS](https://github.com/totaljs/cms) | `2d3e9471c166a31e33ea9e93e32bb9a501ebcc9c` | Widget compilation, settings and editor |
+| [Framework 5](https://github.com/totaljs/framework5) | `7d2d553fc774090081b4e3b1ae75a52ef06b42b8` | Section parser and public rendering |
+
+Read these files in the matching checkout:
+
+- CMS `definitions/func.js`, `FUNC.recompile`: section extraction, metadata evaluation, CLASS substitution and dependencies.
+- CMS `public/widget.txt`: widget template and hook arguments.
+- CMS `public/cmseditor/index.html`: insertion wrapper, editor markers, settings check/load/save and saved config.
+- CMS `public/cmseditor/settings.html`: settings model and submission.
+- CMS `views/admin.html`: UI v19 bundle; `definitions/init.js`: preloaded admin controls.
+- Framework 5 `utils.js`, `String.parseComponent`: exact section extraction.
+- Framework 5 `cms.js`, `compile` and renderer: instance configuration, callback, wrapper replacement and cache.
+- Catalogue `widgets/headline.html`, `widgets/alert.html`, `widgets/container.html`, `widgets/code.html`: configuration, scoping, nested content and server hooks.
+
+CMS uses Framework 5 while the existing standalone catalogue builder `db.js` loads Total.js 4. The kit does not change or run that builder. A widget's settings UI must match the consuming CMS; backend framework major and jComponent major are separate decisions.

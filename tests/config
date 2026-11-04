@@ -1,0 +1,3 @@
+# Sources used only for integration checks.
+cms : https://raw.githubusercontent.com/totaljs/cms/2d3e9471c166a31e33ea9e93e32bb9a501ebcc9c/definitions/func.js
+spa : https://cdn.componentator.com/spa.min@19.js

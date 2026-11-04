@@ -1,0 +1,13 @@
+# Total.js CMS Widgets
+
+> Author, review and verify single-file CMS widgets.
+
+## Documentation
+
+- [CMS widget authoring](AGENTS.md)
+- [AI authoring kit](docs/ai.md)
+- [Widget format](docs/format.md)
+- [CMS widget API](docs/api.md)
+- [Create and review a widget](docs/workflow.md)
+- [Verification](docs/testing.md)
+- [Implementation references](docs/sources.md)
