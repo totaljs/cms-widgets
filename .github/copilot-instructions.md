@@ -1,0 +1,1 @@
+Read `AGENTS.md` and `docs/workflow.md` before creating or reviewing a CMS widget. Use the single-file widget format and the consuming CMS runtime. Check the widget with `tools/check.js`; see `docs/testing.md` for browser and CMS checks. Preserve existing catalogue files unless the task includes them.
